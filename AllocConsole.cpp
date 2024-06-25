@@ -5,6 +5,8 @@
 #include <iostream>
 #include <fstream>
 
+using namespace std;
+
 BOOL WINAPI MyHandlerRoutine( DWORD dwCtrlType ) {
 	TerminateProcess(GetCurrentProcess(), 2);
 	return TRUE;
