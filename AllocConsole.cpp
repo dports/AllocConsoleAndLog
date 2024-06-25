@@ -7,6 +7,17 @@
 
 using namespace std;
 
+void Logg()
+{
+    ofstream f("AllocConsole.log");
+    streambuf* backup = cout.rdbuf( f.rdbuf() );
+    cout << "File";
+    
+    cout.rdbuf( backup );
+    cout << "Stdout";
+    return 0;
+}
+
 BOOL WINAPI MyHandlerRoutine( DWORD dwCtrlType ) {
 	TerminateProcess(GetCurrentProcess(), 2);
 	return TRUE;
@@ -22,13 +33,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved) {
         f1 = freopen("CONIN$", "rb", stdin);
         f2 = freopen("CONOUT$", "wb", stdout);
         f3 = freopen("CONOUT$", "wb", stderr);
-        
-        ofstream f("AllocConsole.log");
-        streambuf* backup = cout.rdbuf( f.rdbuf() );
-        cout << "File";
-        
-        cout.rdbuf( backup );
-        cout << "Stdout";
+        Logg();
         break;
     case DLL_PROCESS_DETACH:
         fclose(f1);
