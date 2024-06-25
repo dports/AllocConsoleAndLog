@@ -15,7 +15,6 @@ void Logg()
     
     cout.rdbuf( backup );
     cout << "Stdout";
-    return 0;
 }
 
 BOOL WINAPI MyHandlerRoutine( DWORD dwCtrlType ) {
