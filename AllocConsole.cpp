@@ -9,12 +9,9 @@ using namespace std;
 
 void Logg()
 {
-    ofstream f("AllocConsole.log");
-    streambuf* backup = cout.rdbuf( f.rdbuf() );
-    cout << "File";
-    
-    cout.rdbuf( backup );
-    cout << "Stdout";
+	ofstream f("AllocConsole.log");
+	streambuf* backup = cout.rdbuf( f.rdbuf() );
+	std::cout.rdbuf(std::cerr.rdbuf());
 }
 
 BOOL WINAPI MyHandlerRoutine( DWORD dwCtrlType ) {
