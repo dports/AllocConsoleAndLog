@@ -2,6 +2,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <windows.h>
 #include <stdio.h>
+#include <iostream>
+#include <fstream>
 
 BOOL WINAPI MyHandlerRoutine( DWORD dwCtrlType ) {
 	TerminateProcess(GetCurrentProcess(), 2);
@@ -18,6 +20,13 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved) {
         f1 = freopen("CONIN$", "rb", stdin);
         f2 = freopen("CONOUT$", "wb", stdout);
         f3 = freopen("CONOUT$", "wb", stderr);
+        
+        ofstream f("AllocConsole.log");
+        streambuf* backup = cout.rdbuf( f.rdbuf() );
+        cout << "File";
+        
+        cout.rdbuf( backup );
+        cout << "Stdout";
         break;
     case DLL_PROCESS_DETACH:
         fclose(f1);
